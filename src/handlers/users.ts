@@ -1,21 +1,38 @@
 import { Context } from 'koa';
+import * as usersService from '../services/users';
 
-export const getUserList = ({ response }: Context) => {
-  response.body = 'users list';
+export const getUserList = async ({ response }: Context) => {
+  response.body = await usersService.getUsers();
 };
 
-export const getUserDetails = ({ params, response }: Context) => {
-  response.body = `user id ${params.id}`;
+export const getUserDetails = async ({ params, response }: Context) => {
+  const user = await usersService.getUserById(params.id);
+
+  if (!user) {
+    response.status = 404;
+    response.body = 'User not found';
+    return;
+  }
+
+  response.body = user;
 };
 
-export const addUser = ({ body, response }: Context) => {
-  response.body = `add user: ${JSON.stringify(body)}`;
+export const addUser = async ({ request, response }: Context) => {
+  response.body = await usersService.addUser(request.body);
 };
 
-export const updateUser = ({ body, params, response }: Context) => {
-  response.body = `add user ${params.id}: ${JSON.stringify(body)}`;
+export const updateUser = async ({ response }: Context) => {
+  response.body = 'Not Implemented Yet';
 };
 
-export const deleteUser = ({ params, response }: Context) => {
-  response.body = `delete user ${params.id}`;
+export const deleteUser = async ({ params, response }: Context) => {
+  const deleted = await usersService.deleteUser(params.id);
+
+  if (!deleted) {
+    response.status = 404;
+    response.body = 'User not found';
+    return;
+  }
+
+  response.body = 'User deleted';
 };
