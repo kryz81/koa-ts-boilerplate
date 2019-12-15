@@ -1,12 +1,13 @@
-import Koa from 'koa';
+import Koa, { Context } from 'koa';
 import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
 import mongoose from 'mongoose';
+
+import { DB_HOST, DB_NAME } from './config/config';
 import routes from './config/routes';
 import swagger from './config/swagger';
 import handleErrors from './middlewares/handleErrors';
-import { DB_HOST, DB_NAME } from './config/config';
 
 const app: Koa = new Koa();
 
@@ -30,5 +31,11 @@ app.use(routes.routes()).use(routes.allowedMethods());
 
 // add swagger docs
 app.use(swagger.routes()).use(swagger.allowedMethods());
+
+// add error route
+app.use(({ response }: Context) => {
+  response.status = 404;
+  response.body = 'Not Found';
+});
 
 export default app;
