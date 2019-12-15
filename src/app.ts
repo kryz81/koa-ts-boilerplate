@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
 import mongoose from 'mongoose';
 import routes from './config/routes';
+import swagger from './config/swagger';
 import handleErrors from './middlewares/handleErrors';
 import { DB_HOST, DB_NAME } from './config/config';
 
@@ -26,5 +27,8 @@ app.use(handleErrors);
 
 // add routes
 app.use(routes.routes()).use(routes.allowedMethods());
+
+// add swagger docs
+app.use(swagger.routes()).use(swagger.allowedMethods());
 
 export default app;

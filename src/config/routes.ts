@@ -1,14 +1,14 @@
 import Router from 'koa-router';
 
-import * as users from '../handlers/users';
+import Users from '../handlers/users';
 
 const routes: Router = new Router();
 
 routes
-  .get('/users', users.getUserList)
-  .get('/users/:id', users.getUserDetails)
-  .post('/users', users.addUser)
-  .put('/users/:id', users.updateUser)
-  .delete('/users:id', users.deleteUser);
+  .get('/users', Users.getUserList)
+  .get('/users/:id', Users.getUserDetails)
+  .post('/users', Users.addUser)
+  .put('/users/:id', Users.updateUser)
+  .delete('/users:id', Users.deleteUser);
 
 export default routes;
