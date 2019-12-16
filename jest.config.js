@@ -2,5 +2,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*.{ts,js}']
+  setupFiles: ['./jest.setup.js'],
+  collectCoverageFrom: ['src/**/*.{ts,js}'],
 };

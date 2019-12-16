@@ -25,4 +25,4 @@ export class User {
   public email?: string;
 }
 
-export const UserModel = getModelForClass(User);
+export const UserModel = getModelForClass(User, { schemaOptions: { collection: 'users' } });

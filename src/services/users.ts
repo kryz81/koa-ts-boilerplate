@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import { validate, validateOrReject, ValidationError } from 'class-validator';
+import { validateOrReject } from 'class-validator';
 
 import { User, UserModel } from '../models/User';
 
