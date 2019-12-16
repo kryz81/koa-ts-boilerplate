@@ -11,7 +11,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await conn.useDb(process.env.DB_NAME as string).dropDatabase();
+  await conn.dropDatabase();
 
   // seed with example user
   await conn.collection('users').insertMany([
