@@ -1,4 +1,6 @@
 import uuid from 'uuid';
+import { validate, validateOrReject, ValidationError } from 'class-validator';
+
 import { User, UserModel } from '../models/User';
 
 export const getUsers = (): Promise<User[]> => UserModel.find().exec();
@@ -11,6 +13,9 @@ export const addUser = async (data: User): Promise<string> => {
     name: data.name,
     role: data.role,
   };
+
+  await validateOrReject(userData, { forbidUnknownValues: true });
+
   const { _id } = await UserModel.create(userData);
 
   return _id;

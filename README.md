@@ -9,7 +9,7 @@
 - Linting: Eslint
 - Code Formatting: Prettier
 - DB: Mongoose + Typegoose
-- Validation: Joi
+- Validation: class-validator
 - Commits linting: Commitlint + Husky
 - TODO: docker machine
 

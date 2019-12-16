@@ -37,7 +37,16 @@ class Users {
   @responses({ 200: { description: 'User created' }, 422: { description: 'User data invalid' } })
   @body((User as any).swaggerDocument)
   static async addUser({ request, response }: Context) {
-    response.body = await usersService.addUser(request.body);
+    try {
+      response.body = await usersService.addUser(request.body);
+    } catch (err) {
+      if (err.name === 'ValidationError') {
+        response.status = 422;
+        response.body = { msg: 'Invalid user data', errors: err.errors };
+        return;
+      }
+      throw err;
+    }
   }
 
   @req('put', '/users/:id')
