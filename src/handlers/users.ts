@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import { body, path, request as req, summary, tags } from 'koa-swagger-decorator';
+import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import * as usersService from '../services/users';
 import { User } from '../models/User';
 
@@ -9,6 +9,7 @@ class Users {
   @req('get', '/users')
   @usersTag
   @summary('Get user list')
+  @responses({ 200: { description: 'List of users' } })
   static async getUserList({ response }: Context) {
     response.body = await usersService.getUsers();
   }
@@ -17,6 +18,7 @@ class Users {
   @usersTag
   @summary('Get user by id')
   @path({ id: { type: 'string', required: true, description: 'user id' } })
+  @responses({ 200: { description: 'User found' }, 404: { description: 'User not found' } })
   static async getUserDetails({ params, response }: Context) {
     const user = await usersService.getUserById(params.id);
 
@@ -32,7 +34,8 @@ class Users {
   @req('post', '/users')
   @usersTag
   @summary('Create a new user')
-  @body(User)
+  @responses({ 200: { description: 'User created' }, 422: { description: 'User data invalid' } })
+  @body((User as any).swaggerDocument)
   static async addUser({ request, response }: Context) {
     response.body = await usersService.addUser(request.body);
   }
@@ -40,7 +43,7 @@ class Users {
   @req('put', '/users/:id')
   @usersTag
   @summary('Update user')
-  @body(User)
+  @body((User as any).swaggerDocument)
   @path({ id: { type: 'string', required: true, description: 'user id' } })
   static async updateUser({ response }: Context) {
     response.body = 'Not Implemented Yet';
@@ -50,6 +53,7 @@ class Users {
   @usersTag
   @summary('Delete user')
   @path({ id: { type: 'string', required: true, description: 'user id' } })
+  @responses({ 200: { description: 'User deleted' }, 404: { description: 'User not found' } })
   static async deleteUser({ params, response }: Context) {
     const deleted = await usersService.deleteUser(params.id);
 
