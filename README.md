@@ -2,16 +2,17 @@
 
 ### Features
 
-- Language: Typescript
-- Framework: Koa
-- API Docs: Swagger
-- Testing: Jest, Supertest
-- Linting: Eslint
-- Code Formatting: Prettier
-- DB: Mongoose + Typegoose
-- Validation: class-validator
-- Commits linting: Commitlint + Husky
-- TODO: docker machine
+- [x] Language: Typescript
+- [x] Framework: Koa
+- [x] API Docs: Swagger + Koa Docs Generator
+- [x] Testing: Jest, Supertest
+- [x] Linting: Eslint
+- [x] Code Formatting: Prettier
+- [x] DB: Mongoose + Typegoose
+- [x] Requests validation: class-validator
+- [x] Commits linting: Commitlint + Husky
+- [ ] TODO Docker machine for development
+- [ ] TODO CI pipeline
 
 ### Install and start developing
 
