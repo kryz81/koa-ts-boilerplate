@@ -19,6 +19,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
+  ignorePatterns: ['config/**/*.js'],
   rules: {
     'prettier/prettier': 'error',
     'import/extensions': [
@@ -30,6 +31,8 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 0,
+    'no-underscore-dangle': 0,
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {

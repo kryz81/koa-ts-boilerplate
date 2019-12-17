@@ -4,7 +4,7 @@ import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
 import mongoose from 'mongoose';
 
-import { DB_HOST, DB_NAME } from './config/config';
+import { DB_ENDPOINT } from './config/config';
 import routes from './config/routes';
 import swagger from './config/swagger';
 import handleErrors from './middlewares/handleErrors';
@@ -12,11 +12,10 @@ import handleErrors from './middlewares/handleErrors';
 const app: Koa = new Koa();
 
 // connect to db
-const dbUrl = `mongodb://${DB_HOST}/${DB_NAME}`;
 mongoose
-  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(DB_ENDPOINT, { useNewUrlParser: true, useUnifiedTopology: true })
   // eslint-disable-next-line no-console
-  .then(() => console.log(`Connected to ${dbUrl}`))
+  .then(() => console.log(`Connected to ${DB_ENDPOINT}`))
   // eslint-disable-next-line no-console
   .catch((err) => console.log(err.message));
 
