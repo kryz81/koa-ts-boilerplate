@@ -27,6 +27,7 @@
   - [ ] Production environment
 - [x] Continuous Integration
   - [x] Travis CI
+  - [x] Coveralls
 - [ ] Code Quality
   - [ ] SonarQube? CodeClimate? Deepscan?
 - [ ] Security Check
