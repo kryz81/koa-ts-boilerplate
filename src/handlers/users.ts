@@ -5,6 +5,10 @@ import { User } from '../models/User';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
 
 const usersTag = tags(['users']);
+class UserForSwagger extends User {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static swaggerDocument: any;
+}
 
 class Users {
   @req('get', '/users')
@@ -36,7 +40,7 @@ class Users {
   @usersTag
   @summary('Create a new user')
   @responses({ 200: { description: 'User created' }, 422: { description: 'Invalid user data' } })
-  @body((User as any).swaggerDocument)
+  @body(UserForSwagger.swaggerDocument)
   static async addUser({ request, response }: Context) {
     try {
       const userId = await usersService.addUser(request.body);
@@ -54,7 +58,7 @@ class Users {
   @req('put', '/users/:id')
   @usersTag
   @summary('Update user')
-  @body((User as any).swaggerDocument)
+  @body(UserForSwagger.swaggerDocument)
   @path({ id: { type: 'string', required: true, description: 'user id' } })
   static async updateUser({ params, request, response }: Context) {
     try {

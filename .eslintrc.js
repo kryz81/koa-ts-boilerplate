@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     'no-underscore-dangle': 0,
     'import/prefer-default-export': 0,
+    'max-classes-per-file': 0,
   },
   settings: {
     'import/resolver': {

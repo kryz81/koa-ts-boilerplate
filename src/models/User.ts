@@ -5,7 +5,6 @@ import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 @swaggerClass()
 export class User {
   @prop({ required: false })
-  @swaggerProperty({ type: 'string' })
   public _id?: string;
 
   @prop({ required: true })
