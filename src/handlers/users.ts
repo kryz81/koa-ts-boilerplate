@@ -2,6 +2,7 @@ import { Context } from 'koa';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import * as usersService from '../services/users';
 import { User } from '../models/User';
+import { extractValidationErrors } from '../utils/extractValidationErrors';
 
 const usersTag = tags(['users']);
 
@@ -34,15 +35,16 @@ class Users {
   @req('post', '/users')
   @usersTag
   @summary('Create a new user')
-  @responses({ 200: { description: 'User created' }, 422: { description: 'User data invalid' } })
+  @responses({ 200: { description: 'User created' }, 422: { description: 'Invalid user data' } })
   @body((User as any).swaggerDocument)
   static async addUser({ request, response }: Context) {
     try {
-      response.body = await usersService.addUser(request.body);
+      const userId = await usersService.addUser(request.body);
+      response.body = { userId };
     } catch (err) {
       if (err.name === 'ValidationError') {
         response.status = 422;
-        response.body = { msg: 'Invalid user data', errors: err.errors };
+        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err.errors) };
         return;
       }
       throw err;
@@ -54,8 +56,24 @@ class Users {
   @summary('Update user')
   @body((User as any).swaggerDocument)
   @path({ id: { type: 'string', required: true, description: 'user id' } })
-  static async updateUser({ response }: Context) {
-    response.body = 'Not Implemented Yet';
+  static async updateUser({ params, request, response }: Context) {
+    try {
+      const userUpdated = await usersService.updateUser(params.id, request.body);
+      if (!userUpdated) {
+        response.status = 404;
+        response.body = 'User not found';
+        return;
+      }
+
+      response.body = 'User updated';
+    } catch (err) {
+      if (err.name === 'ValidationError') {
+        response.status = 422;
+        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err.errors) };
+        return;
+      }
+      throw err;
+    }
   }
 
   @req('delete', '/users/:id')

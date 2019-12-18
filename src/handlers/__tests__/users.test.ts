@@ -39,3 +39,110 @@ it('returns 404 on non-existing user', async () => {
   const { status } = await request(app.callback()).get('/users/3');
   expect(status).toBe(404);
 });
+
+it('creates a new user', async () => {
+  const userData = {
+    name: 'New User',
+    role: 'New User Role',
+  };
+
+  // create user and get user id
+  const {
+    body: { userId },
+  } = await request(app.callback())
+    .post('/users')
+    .send(userData)
+    .expect(200);
+
+  // read user and compare with user data
+  const {
+    body: { name, role },
+  } = await request(app.callback()).get(`/users/${userId}`);
+
+  expect({ name, role }).toEqual(userData);
+});
+
+it('returns 422 on invalid user data', async () => {
+  // role is required
+  const userData = {
+    name: 'New User',
+  };
+
+  const { body } = await request(app.callback())
+    .post('/users')
+    .send(userData)
+    .expect(422);
+
+  expect(body).toMatchInlineSnapshot(`
+    Object {
+      "errors": Object {
+        "role": "Path \`role\` is required.",
+      },
+      "msg": "Invalid user data",
+    }
+  `);
+});
+
+it('updates existing user', async () => {
+  const userData = {
+    name: 'Updated User',
+    role: 'Updated Role',
+  };
+
+  await request(app.callback())
+    .put('/users/1')
+    .send(userData)
+    .expect(200);
+
+  const {
+    body: { name, role },
+  } = await request(app.callback())
+    .get('/users/1')
+    .expect(200);
+
+  expect({ name, role }).toEqual(userData);
+});
+
+it('returns 404 when no user to update found', async () => {
+  await request(app.callback())
+    .put('/users/3')
+    .send({ name: 'Some name', role: 'Some role' })
+    .expect(404);
+});
+
+it('returns 422 on invalid user data', async () => {
+  // name is required
+  const userData = {
+    role: 'Updated Role',
+  };
+
+  const { body } = await request(app.callback())
+    .put('/users/1')
+    .send(userData)
+    .expect(422);
+
+  expect(body).toMatchInlineSnapshot(`
+    Object {
+      "errors": Object {
+        "name": "Path \`name\` is required.",
+      },
+      "msg": "Invalid user data",
+    }
+  `);
+});
+
+it('deletes a user', async () => {
+  await request(app.callback())
+    .delete(`/users/1`)
+    .expect(200);
+
+  await request(app.callback())
+    .get('/users/1')
+    .expect(404);
+});
+
+it('returns 404 when the user to delete does not exist', async () => {
+  await request(app.callback())
+    .delete(`/users/3`)
+    .expect(404);
+});

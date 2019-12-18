@@ -11,9 +11,12 @@ import handleErrors from './middlewares/handleErrors';
 
 const app: Koa = new Koa();
 
-// connect to db
+// connect to db and hide deprecation warnings
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useUnifiedTopology', true);
 mongoose
-  .connect(DB_ENDPOINT, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(DB_ENDPOINT)
   // eslint-disable-next-line no-console
   .then(() => console.log(`Connected to ${DB_ENDPOINT}`))
   // eslint-disable-next-line no-console

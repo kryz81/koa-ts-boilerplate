@@ -29,6 +29,11 @@
 - [ ] Security Check
   - [ ] Snyk?
 
+### To fix
+
+- [ ] Configure Node.js global object and remove "(global as any)"
+- [ ] Output "id" instead of "\_id" (virtual property with typegoose?)
+
 ### Install and start developing
 
 - yarn (or: npm i)

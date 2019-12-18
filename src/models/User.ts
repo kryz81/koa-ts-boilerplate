@@ -19,7 +19,7 @@ export class User {
   @IsNotEmpty()
   public role!: string;
 
-  @prop({ required: true })
+  @prop({ required: false })
   @swaggerProperty({ type: 'string', required: false })
   @IsEmail()
   public email?: string;
