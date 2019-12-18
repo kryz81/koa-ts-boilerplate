@@ -50,7 +50,8 @@
 - build - build production version
 - clean - remove build version, coverage and node_modules
 - test - run tests in watch mode
-- test:once - run all tests once and create code coverage
+- test:once - run all tests once
+- test:coverage - run all tests and collect code coverage
 - lint - lint code
 - format:check - check code for formatting issues
 - format:write - check and fix formatting issues
