@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/kryz81/koa-ts-boilerplate/badge.svg)](https://coveralls.io/github/kryz81/koa-ts-boilerplate)
 [![Known Vulnerabilities](https://snyk.io/test/github/kryz81/koa-ts-boilerplate/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kryz81/koa-ts-boilerplate?targetFile=package.json)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8d8e2c9b9ef9ad495e72/maintainability)](https://codeclimate.com/github/kryz81/koa-ts-boilerplate/maintainability)
 
 ### Features
 
@@ -30,8 +31,8 @@
 - [x] Continuous Integration
   - [x] Travis CI
   - [x] Coveralls
-- [ ] Code Quality
-  - [ ] SonarQube? CodeClimate? Deepscan?
+- [x] Code quality check
+  - [x] Code Climate
 - [x] Security Check
   - [x] Snyk
 
