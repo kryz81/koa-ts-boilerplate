@@ -41,8 +41,8 @@ npm manifest:
       "build": "rimraf dist && tsc",
       "clean": "rimraf dist coverage node_modules yarn-error.log mongo-config.tmp",
       "test": "jest --watch",
-      "test:once": "jest --detectOpenHandles --forceExit",
-      "test:coverage": "jest --coverage",
+      "test:once": "jest",
+      "test:coverage": "jest --detectOpenHandles --forceExit --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
       "lint": "eslint \"src/**/*.{ts,js}\"",
       "format:write": "prettier --write \"src/**/*.{ts,js}\"",
       "format:check": "prettier --check \"src/**/*.{ts,js}\""
