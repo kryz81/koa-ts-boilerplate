@@ -10,6 +10,9 @@ class UserForSwagger extends User {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static swaggerDocument: any;
 }
+const swaggerUserId = { id: { type: 'string', required: true, description: 'user id' } };
+
+const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0] instanceof ValidationError;
 
 class Users {
   @req('get', '/users')
@@ -23,7 +26,7 @@ class Users {
   @req('get', '/users/{id}')
   @usersTag
   @summary('Get user by id')
-  @path({ id: { type: 'string', required: true, description: 'user id' } })
+  @path(swaggerUserId)
   @responses({ 200: { description: 'User found' }, 404: { description: 'User not found' } })
   static async getUserDetails({ params, response }: Context) {
     const user = await usersService.getUserById(params.id);
@@ -47,7 +50,7 @@ class Users {
       const userId = await usersService.addUser(request.body);
       response.body = { userId };
     } catch (err) {
-      if (Array.isArray(err) && err[0] instanceof ValidationError) {
+      if (isValidationError(err)) {
         response.status = 422;
         response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
@@ -60,7 +63,7 @@ class Users {
   @usersTag
   @summary('Update user')
   @body(UserForSwagger.swaggerDocument)
-  @path({ id: { type: 'string', required: true, description: 'user id' } })
+  @path(swaggerUserId)
   static async updateUser({ params, request, response }: Context) {
     try {
       const userUpdated = await usersService.updateUser(params.id, request.body);
@@ -71,7 +74,7 @@ class Users {
       }
       response.body = 'User updated';
     } catch (err) {
-      if (Array.isArray(err) && err[0] instanceof ValidationError) {
+      if (isValidationError(err)) {
         response.status = 422;
         response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
@@ -84,7 +87,7 @@ class Users {
   @req('delete', '/users/:id')
   @usersTag
   @summary('Delete user')
-  @path({ id: { type: 'string', required: true, description: 'user id' } })
+  @path(swaggerUserId)
   @responses({ 200: { description: 'User deleted' }, 404: { description: 'User not found' } })
   static async deleteUser({ params, response }: Context) {
     const deleted = await usersService.deleteUser(params.id);
