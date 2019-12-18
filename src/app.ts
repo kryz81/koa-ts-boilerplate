@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import Koa, { Context } from 'koa';
 import helmet from 'koa-helmet';
 import bodyParser from 'koa-bodyparser';

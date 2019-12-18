@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { createConnection } from 'mongoose';
 
 export const createConn = () =>

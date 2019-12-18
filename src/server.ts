@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { APP_PORT } from './config/config';
 import app from './app';
 

@@ -29,7 +29,7 @@ export const updateUser = async (userId: string, data: User): Promise<boolean> =
 };
 
 export const deleteUser = async (id: string): Promise<boolean> => {
-  const { deletedCount } = await UserModel.deleteOne({ _id: id }).exec();
+  const { deletedCount } = await UserModel.deleteOne({ _id: id });
 
   return deletedCount === 1;
 };
