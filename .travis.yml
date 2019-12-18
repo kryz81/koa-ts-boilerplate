@@ -1,3 +1,9 @@
+notifications:
+  email:
+    recipients:
+      - k@kryz.dev
+    on_success: never
+    on_failure: always
 language: node_js
 node_js:
   - 12
