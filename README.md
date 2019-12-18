@@ -1,5 +1,7 @@
 # Node.js App Boilerplate
 
+[![Build Status](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)
+
 ### Features
 
 - [x] Language: Typescript
@@ -23,9 +25,10 @@
 - [ ] Docker
   - [ ] Development environment
   - [ ] Production environment
-- [ ] Continuous Integration pipeline
+- [x] Continuous Integration
+  - [x] Travis CI
 - [ ] Code Quality
-  - [ ] SonarQube?, Deepscan?
+  - [ ] SonarQube? CodeClimate? Deepscan?
 - [ ] Security Check
   - [ ] Snyk?
 
