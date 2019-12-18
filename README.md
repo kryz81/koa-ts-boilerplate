@@ -24,9 +24,9 @@
   - [ ] Development environment
   - [ ] Production environment
 - [ ] Continuous Integration pipeline
-- Code Quality
+- [ ] Code Quality
   - [ ] SonarQube?, Deepscan?
-- Security Check
+- [ ] Security Check
   - [ ] Snyk?
 
 ### Install and start developing
