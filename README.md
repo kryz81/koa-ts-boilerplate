@@ -1,6 +1,7 @@
 # Node.js App Boilerplate
 
 [![Build Status](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)](https://travis-ci.org/kryz81/koa-ts-boilerplate.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/kryz81/koa-ts-boilerplate/badge.svg)](https://coveralls.io/github/kryz81/koa-ts-boilerplate)
 
 ### Features
 
