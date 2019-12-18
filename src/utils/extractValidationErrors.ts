@@ -1,11 +1,12 @@
-type ErrorObject = Record<string, { message: string }>;
+import { ValidationError } from 'class-validator';
+
 type ErrorMessage = { [key: string]: string };
 
-export const extractValidationErrors = (errors: ErrorObject): ErrorMessage =>
-  Object.keys(errors).reduce(
-    (createdErrorsObject: ErrorMessage, currentError: string) => ({
-      ...createdErrorsObject,
-      [currentError]: errors[currentError].message,
+export const extractValidationErrors = (errors: ReadonlyArray<ValidationError>): ErrorMessage =>
+  errors.reduce(
+    (result, error) => ({
+      ...result,
+      [error.property]: Object.values(error.constraints),
     }),
     {},
   );

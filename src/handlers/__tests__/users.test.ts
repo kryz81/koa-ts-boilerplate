@@ -15,8 +15,8 @@ beforeEach(async () => {
 
   // seed with example user
   await conn.collection('users').insertMany([
-    { _id: '1', name: 'Test User', role: 'Test Role' },
-    { _id: '2', name: 'Test User 2', role: 'Test Role 2' },
+    { _id: '1', name: 'Test User', role: 'user' },
+    { _id: '2', name: 'Test User 2', role: 'admin' },
   ]);
 });
 
@@ -24,15 +24,15 @@ it('returns list of users', async () => {
   const { status, body } = await request(app.callback()).get('/users');
   expect(status).toBe(200);
   expect(body).toEqual([
-    { _id: '1', name: 'Test User', role: 'Test Role' },
-    { _id: '2', name: 'Test User 2', role: 'Test Role 2' },
+    { _id: '1', name: 'Test User', role: 'user' },
+    { _id: '2', name: 'Test User 2', role: 'admin' },
   ]);
 });
 
 it('returns user with given id', async () => {
   const { status, body } = await request(app.callback()).get('/users/2');
   expect(status).toBe(200);
-  expect(body).toEqual({ _id: '2', name: 'Test User 2', role: 'Test Role 2' });
+  expect(body).toEqual({ _id: '2', name: 'Test User 2', role: 'admin' });
 });
 
 it('returns 404 on non-existing user', async () => {
@@ -43,7 +43,7 @@ it('returns 404 on non-existing user', async () => {
 it('creates a new user', async () => {
   const userData = {
     name: 'New User',
-    role: 'New User Role',
+    role: 'user',
   };
 
   // create user and get user id
@@ -76,7 +76,10 @@ it('returns 422 on invalid user data', async () => {
   expect(body).toMatchInlineSnapshot(`
     Object {
       "errors": Object {
-        "role": "Path \`role\` is required.",
+        "role": Array [
+          "role must be a valid enum value",
+          "role should not be empty",
+        ],
       },
       "msg": "Invalid user data",
     }
@@ -86,7 +89,7 @@ it('returns 422 on invalid user data', async () => {
 it('updates existing user', async () => {
   const userData = {
     name: 'Updated User',
-    role: 'Updated Role',
+    role: 'admin',
   };
 
   await request(app.callback())
@@ -106,14 +109,14 @@ it('updates existing user', async () => {
 it('returns 404 when no user to update found', async () => {
   await request(app.callback())
     .put('/users/3')
-    .send({ name: 'Some name', role: 'Some role' })
+    .send({ name: 'Some name', role: 'user' })
     .expect(404);
 });
 
 it('returns 422 on invalid user data', async () => {
   // name is required
   const userData = {
-    role: 'Updated Role',
+    role: 'user',
   };
 
   const { body } = await request(app.callback())
@@ -124,7 +127,10 @@ it('returns 422 on invalid user data', async () => {
   expect(body).toMatchInlineSnapshot(`
     Object {
       "errors": Object {
-        "name": "Path \`name\` is required.",
+        "name": Array [
+          "name must be longer than or equal to 3 characters",
+          "name should not be empty",
+        ],
       },
       "msg": "Invalid user data",
     }

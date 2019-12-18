@@ -1,5 +1,6 @@
-import { Context } from 'koa';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
+import { Context } from 'koa';
+import { ValidationError } from 'class-validator';
 import * as usersService from '../services/users';
 import { User } from '../models/User';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
@@ -46,9 +47,9 @@ class Users {
       const userId = await usersService.addUser(request.body);
       response.body = { userId };
     } catch (err) {
-      if (err.name === 'ValidationError') {
+      if (Array.isArray(err) && err[0] instanceof ValidationError) {
         response.status = 422;
-        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err.errors) };
+        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
       throw err;
@@ -68,14 +69,14 @@ class Users {
         response.body = 'User not found';
         return;
       }
-
       response.body = 'User updated';
     } catch (err) {
-      if (err.name === 'ValidationError') {
+      if (Array.isArray(err) && err[0] instanceof ValidationError) {
         response.status = 422;
-        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err.errors) };
+        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
+      console.log(err);
       throw err;
     }
   }

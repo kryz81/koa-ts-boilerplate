@@ -10,7 +10,7 @@
     "start:dev": "tsc-watch --onSuccess 'node -r dotenv/config dist/server.js'",
     "start:debug": "tsc-watch --onSuccess 'node -r dotenv/config --inspect=0.0.0.0:9229 dist/server.js'",
     "build": "rimraf dist && tsc",
-    "clean": "rimraf dist coverage node_modules",
+    "clean": "rimraf dist coverage node_modules yarn-error.log mongo-config.tmp",
     "test": "jest --watch",
     "test:once": "jest --coverage",
     "lint": "eslint \"src/**/*.{ts,js}\"",
@@ -20,6 +20,7 @@
   "dependencies": {
     "@koa/cors": "3.0.0",
     "@typegoose/typegoose": "6.1.7",
+    "class-transformer": "0.2.3",
     "class-validator": "0.11.0",
     "koa": "2.11.0",
     "koa-bodyparser": "4.2.1",

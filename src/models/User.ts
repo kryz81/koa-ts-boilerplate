@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { swaggerClass, swaggerProperty } from 'koa-swagger-decorator';
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, Length } from 'class-validator';
+import { Role } from './Role';
 
 @swaggerClass()
 export class User {
@@ -16,10 +17,12 @@ export class User {
   @prop({ required: true })
   @swaggerProperty({ type: 'string', required: true })
   @IsNotEmpty()
+  @IsEnum(Role)
   public role!: string;
 
   @prop({ required: false })
   @swaggerProperty({ type: 'string', required: false })
+  @IsOptional()
   @IsEmail()
   public email?: string;
 }

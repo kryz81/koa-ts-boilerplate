@@ -1,3 +1,5 @@
+import { plainToClass } from 'class-transformer';
+import { validateOrReject } from 'class-validator';
 import { generateId } from '../utils/generateId';
 import { User, UserModel } from '../models/User';
 
@@ -10,10 +12,14 @@ export const getUsers = (): Promise<User[]> => UserModel.find().exec();
 
 export const getUserById = (id: string): Promise<User | null> => UserModel.findById(id).exec();
 
-export const addUser = async (data: User): Promise<string> => {
+export const addUser = async (uncheckedUserData: unknown): Promise<string> => {
+  const uncheckedUser: User = plainToClass(User, uncheckedUserData);
+
+  await validateOrReject(uncheckedUser);
+
   const userData = {
     _id: generateId(),
-    ...createUserData(data),
+    ...createUserData(uncheckedUser),
   };
 
   const { _id } = await UserModel.create(userData);
@@ -21,8 +27,12 @@ export const addUser = async (data: User): Promise<string> => {
   return _id;
 };
 
-export const updateUser = async (userId: string, data: User): Promise<boolean> => {
-  const userData = createUserData(data);
+export const updateUser = async (userId: string, uncheckedUserData: unknown): Promise<boolean> => {
+  const uncheckedUser: User = plainToClass(User, uncheckedUserData);
+
+  await validateOrReject(uncheckedUser);
+
+  const userData = createUserData(uncheckedUser);
   const updated = await UserModel.findByIdAndUpdate(userId, userData, { new: true, runValidators: true });
 
   return updated !== null;
