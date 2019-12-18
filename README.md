@@ -5,14 +5,29 @@
 - [x] Language: Typescript
 - [x] Framework: Koa
 - [x] API Docs: Swagger + Koa Docs Generator
-- [x] Testing: Jest, Supertest
-- [x] Linting: Eslint
-- [x] Code Formatting: Prettier
-- [x] DB: Mongoose + Typegoose
+  - [x] Swagger
+  - [x] Koa Swagger Decorator
+- [x] Testing
+  - [x] Unit tests: Jest
+  - [x] Functional tests: Supertest, MongoDB In-Memory
+- [x] Linting
+  - [x] Eslint with Typescript
+- [x] Code Formatting
+  - [x] Prettier
+  - [ ] Editorconfig
+- [x] Database
+  - [x] Mongoose
+  - [x] Typegoose
 - [x] Requests validation: class-validator
 - [x] Commits linting: Commitlint + Husky
-- [ ] TODO Docker machine for development
-- [ ] TODO CI pipeline
+- [ ] Docker
+  - [ ] Development environment
+  - [ ] Production environment
+- [ ] Continuous Integration pipeline
+- Code Quality
+  - [ ] SonarQube?, Deepscan?
+- Security Check
+  - [ ] Snyk?
 
 ### Install and start developing
 
