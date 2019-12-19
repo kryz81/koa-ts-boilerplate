@@ -3,6 +3,3 @@ dist
 coverage
 .idea
 .env
-*.tmp
-.cache
-yarn-error.log
