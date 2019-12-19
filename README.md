@@ -15,6 +15,7 @@
 - [x] Testing
   - [x] Unit tests: Jest
   - [x] Functional tests: Supertest, MongoDB In-Memory
+  - [ ] Mutation tests: Stryker
 - [x] Linting
   - [x] Eslint with Typescript
 - [x] Code Formatting
@@ -24,9 +25,10 @@
   - [x] Mongoose
   - [x] Typegoose
 - [x] Requests validation: class-validator
+- [ ] Background jobs: Agenda
 - [x] Commits linting: Commitlint + Husky
 - [ ] Docker
-  - [ ] Development environment
+  - [x] Development environment
   - [ ] Production environment
 - [x] Continuous Integration
   - [x] Travis CI
