@@ -79,7 +79,6 @@ class Users {
         response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
-      console.log(err);
       throw err;
     }
   }
