@@ -26,6 +26,9 @@
   - [x] Typegoose
 - [x] Requests validation: class-validator
 - [ ] Background jobs: Agenda
+- [ ] Event Manager
+- [ ] Logger (Winston?)
+- [ ] Dependency Injection
 - [x] Commits linting: Commitlint + Husky
 - [ ] Docker
   - [x] Development environment
@@ -42,28 +45,39 @@
 
 - [ ] Configure Node.js global object and remove "(global as any)"
 - [ ] Output "id" instead of "\_id" (virtual property with typegoose?)
+- [ ] yarn runs either all dependencies or only production deps, how to install dev dependencies ONLY?
+- [ ] Command "docker-compose exec web yarn test:once" fails -> no tests to run found
 
-### Install and start developing
+### Install and start developing (locally, without docker)
 
-- yarn (or: npm i)
 - create .env, copy content from .env.dist and set variables, for example: APP_PORT=3000, DB_HOST=localhost:27017, DB_NAME=myapp
-- do not push .env to git repo!
-- run app in development mode: yarn start:dev (or: npm run start:dev)
+- .env file is ignored by git and shouldn't be pushed to repo
+- yarn (or: npm i)
+- run in development mode: yarn start:dev (or: npm run start:dev)
 - run tests in development mode: yarn test (or: npm test)
+
+### Develop using docker machine
+
+| Command                                    | Description                                      |
+| ------------------------------------------ | ------------------------------------------------ |
+| docker-compose up --build                  | start in development mode (no debugger enabled)  |
+| TARGET=debugging docker-compose up --build | start in development mode with debugger attached |
 
 ### Commands
 
-- start:prod - run production version
-- start:dev - run in development
-- start:debug - run in development with enabled debugger
-- build - build production version
-- clean - remove build version, coverage and node_modules
-- test - run tests in watch mode
-- test:once - run all tests once
-- test:coverage - run all tests and collect code coverage
-- lint - lint code
-- format:check - check code for formatting issues
-- format:write - check and fix formatting issues
+| Command       | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| start:prod    | run production version (must be built with "build" command |
+| start:dev     | run in development mode                                    |
+| start:debug   | run in development mode with enabled debugger              |
+| build         | build production version                                   |
+| clean         | remove node_modules, coverage, built app and so on         |
+| test          | run tests in watch mode                                    |
+| test:once     | run all tests once                                         |
+| test:coverage | run all tests and export code coverage                     |
+| lint          | lint code                                                  |
+| format:check  | check code for formatting issues                           |
+| format:write  | check and automatically fix formatting issues              |
 
 ### Build and run in production
 
@@ -72,3 +86,10 @@
 ### Swagger UI
 
 Open: localhost:3000/api-docs/html or localhost:3000/api-docs/json
+
+### How to debug with docker and intelliJ
+
+- Edit configurations -> new configuration -> Attach to Node.js/Chrome
+- Host: localhost, port: 9229
+- Run docker machine with debugger: TARGET=debugging docker-compose up --build
+- Run "debug"

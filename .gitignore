@@ -1,8 +1,10 @@
 node_modules
 dist
 coverage
+.git
 .idea
 .env
 *.tmp
 .cache
 yarn-error.log
+docker-compose.yml
