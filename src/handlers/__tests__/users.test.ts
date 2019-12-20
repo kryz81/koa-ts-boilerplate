@@ -34,7 +34,6 @@ it('returns user with given id', async () => {
   expect(status).toBe(200);
   expect(body).toEqual({ _id: '2', name: 'Test User 2', role: 'admin' });
 });
-
 it('returns 404 on non-existing user', async () => {
   const { status } = await request(app.callback()).get('/users/3');
   expect(status).toBe(404);
