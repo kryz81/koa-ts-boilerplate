@@ -7,4 +7,5 @@ coverage
 *.tmp
 .cache
 yarn-error.log
-docker-compose.yml
+.yarnrc
+.yarn

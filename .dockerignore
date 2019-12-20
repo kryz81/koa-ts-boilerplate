@@ -1,5 +1,7 @@
 node_modules
 dist
 coverage
+.git
 .idea
-
+.env
+docker-compose.yml
