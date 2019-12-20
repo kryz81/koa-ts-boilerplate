@@ -10,12 +10,15 @@ services:
       - .:/home/node/app:delegated # "delegated" = the container’s view is authoritative (performance improvement)
       - /home/node/app/node_modules # hide node_modules from host
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - '3000:3000'
       - '9229:9229'
   db:
     image: mongo:bionic
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
     volumes:
       - db:/data/db
 
