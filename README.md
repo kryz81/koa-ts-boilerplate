@@ -33,6 +33,7 @@
 - [ ] Docker
   - [x] Development environment
   - [ ] Production environment
+- [ ] Database migrations (migrate-mongo)
 - [x] Continuous Integration
   - [x] Travis CI
   - [x] Coveralls
