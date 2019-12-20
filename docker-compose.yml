@@ -4,7 +4,7 @@ services:
   web:
     build: .
     volumes:
-      - ./:/home/node:delegated
+      - ./:/home/node:delegated # "delegated" = the container’s view is authoritative (performance improvement)
     depends_on:
       - db
     ports:
