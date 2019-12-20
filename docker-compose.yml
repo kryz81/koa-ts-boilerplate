@@ -15,3 +15,8 @@ services:
       - '9229:9229'
   db:
     image: mongo:bionic
+    volumes:
+      - db:/data/db
+
+volumes:
+  db:
