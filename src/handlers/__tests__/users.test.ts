@@ -34,6 +34,7 @@ it('returns user with given id', async () => {
   expect(status).toBe(200);
   expect(body).toEqual({ _id: '2', name: 'Test User 2', role: 'admin' });
 });
+
 it('returns 404 on non-existing user', async () => {
   const { status } = await request(app.callback()).get('/users/3');
   expect(status).toBe(404);
@@ -43,6 +44,7 @@ it('creates a new user', async () => {
   const userData = {
     name: 'New User',
     role: 'user',
+    email: 'user@email.dev',
   };
 
   // create user and get user id
@@ -55,10 +57,10 @@ it('creates a new user', async () => {
 
   // read user and compare with user data
   const {
-    body: { name, role },
+    body: { name, role, email },
   } = await request(app.callback()).get(`/users/${userId}`);
 
-  expect({ name, role }).toEqual(userData);
+  expect({ name, role, email }).toEqual(userData);
 });
 
 it('returns 422 on invalid user data', async () => {

@@ -22,6 +22,7 @@ it('creates a user and returns user id', async () => {
   const userData = {
     name: 'User Name',
     role: 'user',
+    email: 'user@email.dev',
   };
 
   await addUser(userData);

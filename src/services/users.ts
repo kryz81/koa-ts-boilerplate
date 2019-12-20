@@ -6,6 +6,7 @@ import { User, UserModel } from '../models/User';
 const createUserData = (data: User): User => ({
   name: data.name,
   role: data.role,
+  email: data.email,
 });
 
 export const getUsers = (): Promise<User[]> => UserModel.find().exec();
