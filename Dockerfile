@@ -19,6 +19,7 @@ RUN yarn
 # good practice: copy source code to subdirectory
 WORKDIR /home/node/app
 
+# access .bin tools from parent node_modules
 ENV PATH=/home/node/node_modules/.bin:$PATH
 
 # good practice: don't use ADD (more complex, not needed for local copy)
