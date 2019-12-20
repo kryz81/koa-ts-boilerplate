@@ -1,6 +1,7 @@
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import { Context } from 'koa';
 import { ValidationError } from 'class-validator';
+import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import * as usersService from '../services/users';
 import { User } from '../models/User';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
@@ -18,7 +19,7 @@ class Users {
   @req('get', '/users')
   @usersTag
   @summary('Get user list')
-  @responses({ 200: { description: 'List of users' } })
+  @responses({ [OK]: { description: 'List of users' } })
   static async getUserList({ response }: Context) {
     response.body = await usersService.getUsers();
   }
@@ -27,12 +28,12 @@ class Users {
   @usersTag
   @summary('Get user by id')
   @path(swaggerUserId)
-  @responses({ 200: { description: 'User found' }, 404: { description: 'User not found' } })
+  @responses({ [OK]: { description: 'User found' }, [NOT_FOUND]: { description: 'User not found' } })
   static async getUserDetails({ params, response }: Context) {
     const user = await usersService.getUserById(params.id);
 
     if (!user) {
-      response.status = 404;
+      response.status = NOT_FOUND;
       response.body = 'User not found';
       return;
     }
@@ -43,7 +44,7 @@ class Users {
   @req('post', '/users')
   @usersTag
   @summary('Create a new user')
-  @responses({ 200: { description: 'User created' }, 422: { description: 'Invalid user data' } })
+  @responses({ [OK]: { description: 'User created' }, [UNPROCESSABLE_ENTITY]: { description: 'Invalid user data' } })
   @body(UserForSwagger.swaggerDocument)
   static async addUser({ request, response }: Context) {
     try {
@@ -51,7 +52,7 @@ class Users {
       response.body = { userId };
     } catch (err) {
       if (isValidationError(err)) {
-        response.status = 422;
+        response.status = UNPROCESSABLE_ENTITY;
         response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
@@ -62,20 +63,25 @@ class Users {
   @req('put', '/users/:id')
   @usersTag
   @summary('Update user')
+  @responses({
+    [OK]: { description: 'User updated' },
+    [NOT_FOUND]: { description: 'User not found' },
+    [UNPROCESSABLE_ENTITY]: { description: 'Invalid user data' },
+  })
   @body(UserForSwagger.swaggerDocument)
   @path(swaggerUserId)
   static async updateUser({ params, request, response }: Context) {
     try {
       const userUpdated = await usersService.updateUser(params.id, request.body);
       if (!userUpdated) {
-        response.status = 404;
+        response.status = NOT_FOUND;
         response.body = 'User not found';
         return;
       }
       response.body = 'User updated';
     } catch (err) {
       if (isValidationError(err)) {
-        response.status = 422;
+        response.status = UNPROCESSABLE_ENTITY;
         response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
@@ -87,12 +93,12 @@ class Users {
   @usersTag
   @summary('Delete user')
   @path(swaggerUserId)
-  @responses({ 200: { description: 'User deleted' }, 404: { description: 'User not found' } })
+  @responses({ [OK]: { description: 'User deleted' }, [NOT_FOUND]: { description: 'User not found' } })
   static async deleteUser({ params, response }: Context) {
     const deleted = await usersService.deleteUser(params.id);
 
     if (!deleted) {
-      response.status = 404;
+      response.status = NOT_FOUND;
       response.body = 'User not found';
       return;
     }

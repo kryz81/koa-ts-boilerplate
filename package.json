@@ -23,6 +23,7 @@
     "@typegoose/typegoose": "6.1.7",
     "class-transformer": "0.2.3",
     "class-validator": "0.11.0",
+    "http-status-codes": "1.4.0",
     "koa": "2.11.0",
     "koa-bodyparser": "4.2.1",
     "koa-helmet": "5.2.0",
