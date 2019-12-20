@@ -9,11 +9,17 @@ RUN apt update && apt install -y tini
 # good practice: don't run as a root
 USER node
 
+# good practice: install node_modules in parent directory
 WORKDIR /home/node
 
 COPY package.json yarn.lock ./
 
 RUN yarn
+
+# good practice: copy source code to subdirectory
+WORKDIR /home/node/app
+
+ENV PATH=/home/node/node_modules/.bin:$PATH
 
 # good practice: don't use ADD (more complex, not needed for local copy)
 COPY --chown=node:node . .
