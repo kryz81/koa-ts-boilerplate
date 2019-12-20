@@ -19,6 +19,7 @@ RUN yarn
 # good practice: don't use ADD (more complex, not needed for local copy)
 COPY --chown=node:node . .
 
+# good practice: tini takes care of node process
 ENTRYPOINT ["tini", "--"]
 
 # much better option here would be to run node directly, because npm/yarn creates another process in container
