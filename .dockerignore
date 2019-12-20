@@ -3,5 +3,4 @@ dist
 coverage
 .git
 .idea
-.env
 docker-compose.yml
