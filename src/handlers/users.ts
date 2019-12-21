@@ -1,8 +1,10 @@
+import { inject, injectable } from 'inversify';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import { Context } from 'koa';
 import { ValidationError } from 'class-validator';
 import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import * as usersService from '../services/users';
+import SERVICE_ID from '../config/service_id';
+import { UsersService } from '../services/users';
 import { User } from '../models/User';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
 
@@ -15,13 +17,16 @@ const swaggerUserId = { id: { type: 'string', required: true, description: 'user
 
 const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0] instanceof ValidationError;
 
-class Users {
+@injectable()
+class UsersHandler {
+  constructor(@inject(SERVICE_ID.USERS_SERVICE) private usersService: UsersService) {}
+
   @req('get', '/users')
   @usersTag
   @summary('Get user list')
   @responses({ [OK]: { description: 'List of users' } })
-  static async getUserList({ response }: Context) {
-    response.body = await usersService.getUsers();
+  async getUserList({ response }: Context) {
+    response.body = await this.usersService.getUsers();
   }
 
   @req('get', '/users/{id}')
@@ -29,8 +34,8 @@ class Users {
   @summary('Get user by id')
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User found' }, [NOT_FOUND]: { description: 'User not found' } })
-  static async getUserDetails({ params, response }: Context) {
-    const user = await usersService.getUserById(params.id);
+  async getUserDetails({ params, response }: Context) {
+    const user = await this.usersService.getUserById(params.id);
 
     if (!user) {
       response.status = NOT_FOUND;
@@ -46,9 +51,9 @@ class Users {
   @summary('Create a new user')
   @responses({ [OK]: { description: 'User created' }, [UNPROCESSABLE_ENTITY]: { description: 'Invalid user data' } })
   @body(UserForSwagger.swaggerDocument)
-  static async addUser({ request, response }: Context) {
+  async addUser({ request, response }: Context) {
     try {
-      const userId = await usersService.addUser(request.body);
+      const userId = await this.usersService.addUser(request.body);
       response.body = { userId };
     } catch (err) {
       if (isValidationError(err)) {
@@ -70,9 +75,9 @@ class Users {
   })
   @body(UserForSwagger.swaggerDocument)
   @path(swaggerUserId)
-  static async updateUser({ params, request, response }: Context) {
+  async updateUser({ params, request, response }: Context) {
     try {
-      const userUpdated = await usersService.updateUser(params.id, request.body);
+      const userUpdated = await this.usersService.updateUser(params.id, request.body);
       if (!userUpdated) {
         response.status = NOT_FOUND;
         response.body = 'User not found';
@@ -94,8 +99,8 @@ class Users {
   @summary('Delete user')
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User deleted' }, [NOT_FOUND]: { description: 'User not found' } })
-  static async deleteUser({ params, response }: Context) {
-    const deleted = await usersService.deleteUser(params.id);
+  async deleteUser({ params, response }: Context) {
+    const deleted = await this.usersService.deleteUser(params.id);
 
     if (!deleted) {
       response.status = NOT_FOUND;
@@ -107,4 +112,4 @@ class Users {
   }
 }
 
-export default Users;
+export default UsersHandler;

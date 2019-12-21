@@ -6,9 +6,9 @@
   "author": "kryz <k@kryz.dev>",
   "license": "MIT",
   "scripts": {
-    "start:prod": "node dist/server.js",
-    "start:dev": "tsc-watch --noClear --onSuccess 'node -r dotenv/config dist/server.js'",
-    "start:debug": "tsc-watch --noClear --onSuccess 'node -r dotenv/config --inspect=0.0.0.0:9229 dist/server.js'",
+    "start:prod": "node dist/index.js",
+    "start:dev": "tsc-watch --noClear --onSuccess 'node -r dotenv/config dist/index.js'",
+    "start:debug": "tsc-watch --noClear --onSuccess 'node -r dotenv/config --inspect=0.0.0.0:9229 dist/index.js'",
     "build": "rimraf dist && tsc",
     "clean": "rimraf dist coverage node_modules yarn-error.log mongo-config.tmp",
     "test": "jest --watch",
@@ -24,12 +24,14 @@
     "class-transformer": "0.2.3",
     "class-validator": "0.11.0",
     "http-status-codes": "1.4.0",
+    "inversify": "5.0.1",
     "koa": "2.11.0",
     "koa-bodyparser": "4.2.1",
     "koa-helmet": "5.2.0",
     "koa-router": "7.4.0",
     "koa-swagger-decorator": "1.6.0",
     "mongoose": "5.8.1",
+    "reflect-metadata": "0.1.13",
     "uuid": "3.3.3"
   },
   "devDependencies": {

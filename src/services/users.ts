@@ -1,5 +1,7 @@
+import { ModelType } from '@typegoose/typegoose/lib/types';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
+import { injectable } from 'inversify';
 import { generateId } from '../utils/generateId';
 import { User, UserModel } from '../models/User';
 
@@ -9,38 +11,51 @@ const createUserData = (data: User): User => ({
   email: data.email,
 });
 
-export const getUsers = (): Promise<User[]> => UserModel.find().exec();
+@injectable()
+export class UsersService {
+  protected userModel: ModelType<User>;
 
-export const getUserById = (id: string): Promise<User | null> => UserModel.findById(id).exec();
+  constructor() {
+    this.userModel = UserModel;
+  }
 
-export const addUser = async (uncheckedUserData: unknown): Promise<string> => {
-  const uncheckedUser: User = plainToClass(User, uncheckedUserData);
+  getUsers(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
 
-  await validateOrReject(uncheckedUser);
+  getUserById(id: string): Promise<User | null> {
+    return this.userModel.findById(id).exec();
+  }
 
-  const userData = {
-    _id: generateId(),
-    ...createUserData(uncheckedUser),
-  };
+  async addUser(uncheckedUserData: unknown): Promise<string> {
+    const uncheckedUser: User = plainToClass(User, uncheckedUserData);
 
-  const { _id } = await UserModel.create(userData);
+    await validateOrReject(uncheckedUser);
 
-  return _id;
-};
+    const userData = {
+      _id: generateId(),
+      ...createUserData(uncheckedUser),
+    };
 
-export const updateUser = async (userId: string, uncheckedUserData: unknown): Promise<boolean> => {
-  const uncheckedUser: User = plainToClass(User, uncheckedUserData);
+    const { _id } = await this.userModel.create(userData);
 
-  await validateOrReject(uncheckedUser);
+    return _id;
+  }
 
-  const userData = createUserData(uncheckedUser);
-  const updated = await UserModel.findByIdAndUpdate(userId, userData, { new: true, runValidators: true });
+  async updateUser(userId: string, uncheckedUserData: unknown): Promise<boolean> {
+    const uncheckedUser: User = plainToClass(User, uncheckedUserData);
 
-  return updated !== null;
-};
+    await validateOrReject(uncheckedUser);
 
-export const deleteUser = async (id: string): Promise<boolean> => {
-  const { deletedCount } = await UserModel.deleteOne({ _id: id });
+    const userData = createUserData(uncheckedUser);
+    const updated = await this.userModel.findByIdAndUpdate(userId, userData, { new: true, runValidators: true });
 
-  return deletedCount === 1;
-};
+    return updated !== null;
+  }
+
+  async deleteUser(id: string): Promise<boolean> {
+    const { deletedCount } = await this.userModel.deleteOne({ _id: id });
+
+    return deletedCount === 1;
+  }
+}

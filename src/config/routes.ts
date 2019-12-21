@@ -1,14 +1,29 @@
+import { inject, injectable } from 'inversify';
 import Router from 'koa-router';
+import SERVICE_ID from './service_id';
+import UsersHandler from '../handlers/users';
 
-import Users from '../handlers/users';
+@injectable()
+class Routes {
+  protected router: Router;
 
-const routes: Router = new Router();
+  protected usersHandler: UsersHandler;
 
-routes
-  .get('/users', Users.getUserList)
-  .get('/users/:id', Users.getUserDetails)
-  .post('/users', Users.addUser)
-  .put('/users/:id', Users.updateUser)
-  .delete('/users:id', Users.deleteUser);
+  constructor(@inject(SERVICE_ID.USERS_HANDLER) usersHandler: UsersHandler) {
+    this.router = new Router();
+    this.usersHandler = usersHandler;
+  }
 
-export default routes;
+  init(): Router {
+    this.router
+      .get('/users', (ctx) => this.usersHandler.getUserList(ctx))
+      .get('/users/:id', (ctx) => this.usersHandler.getUserDetails(ctx))
+      .post('/users', (ctx) => this.usersHandler.addUser(ctx))
+      .put('/users/:id', (ctx) => this.usersHandler.updateUser(ctx))
+      .delete('/users/:id', (ctx) => this.usersHandler.deleteUser(ctx));
+
+    return this.router;
+  }
+}
+
+export default Routes;

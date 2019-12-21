@@ -1,4 +1,4 @@
-import { addUser, deleteUser, getUserById } from '../users';
+import { UsersService } from '../users';
 import { UserModel } from '../../models/User';
 
 jest.mock('class-validator', () => ({
@@ -18,6 +18,11 @@ jest.mock('../../utils/generateId', () => ({
   generateId: () => 1,
 }));
 
+let usersService: UsersService;
+beforeEach(() => {
+  usersService = new UsersService();
+});
+
 it('creates a user and returns user id', async () => {
   const userData = {
     name: 'User Name',
@@ -25,19 +30,19 @@ it('creates a user and returns user id', async () => {
     email: 'user@email.dev',
   };
 
-  await addUser(userData);
+  await usersService.addUser(userData);
 
   expect(UserModel.create).toBeCalledWith({ _id: 1, ...userData });
 });
 
 it('looks for the user with given id', () => {
-  getUserById('10');
+  usersService.getUserById('10');
 
   expect(UserModel.findById).toBeCalledWith('10');
 });
 
 it('deletes the user with given id', () => {
-  deleteUser('20');
+  usersService.deleteUser('20');
 
   expect(UserModel.deleteOne).toBeCalledWith({ _id: '20' });
 });

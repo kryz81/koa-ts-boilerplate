@@ -1,13 +1,18 @@
 /** @jest-environment <rootDir>/config/jest/mongodb */
 
+import Koa from 'koa';
 import request from 'supertest';
 import { Connection } from 'mongoose';
-import app from '../../app';
+import App from '../../app';
+import SERVICE_ID from '../../config/service_id';
 import { createConn } from '../../utils/tests/dbHelper';
+import container from '../../config/dic';
 
 let conn: Connection;
+let app: Koa;
 beforeAll(async () => {
   conn = await createConn();
+  app = container.get<App>(SERVICE_ID.APP).init();
 });
 
 beforeEach(async () => {
@@ -140,7 +145,7 @@ it('returns 422 on invalid user data', async () => {
 
 it('deletes a user', async () => {
   await request(app.callback())
-    .delete(`/users/1`)
+    .delete('/users/1')
     .expect(200);
 
   await request(app.callback())

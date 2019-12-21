@@ -28,11 +28,11 @@
 - [ ] Background jobs: Agenda
 - [ ] Event Manager
 - [ ] Logger (Winston?)
-- [ ] Dependency Injection
+- [x] Dependency Injection
 - [x] Commits linting: Commitlint + Husky
 - [ ] Docker
   - [x] Development environment
-  - [ ] Production environment
+  - [x] Production environment
 - [ ] Database migrations (migrate-mongo)
 - [x] Continuous Integration
   - [x] Travis CI
