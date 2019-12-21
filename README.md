@@ -20,7 +20,7 @@
   - [x] Eslint with Typescript
 - [x] Code Formatting
   - [x] Prettier
-  - [ ] Editorconfig
+  - [x] Editorconfig
 - [x] Database
   - [x] Mongoose
   - [x] Typegoose
