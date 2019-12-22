@@ -26,11 +26,11 @@
   - [x] Typegoose
 - [x] Requests validation: class-validator
 - [ ] Background jobs: Agenda
-- [ ] Event Manager
+- [x] Event Manager
 - [ ] Logger (Winston?)
 - [x] Dependency Injection
 - [x] Commits linting: Commitlint + Husky
-- [ ] Docker
+- [x] Docker
   - [x] Development environment
   - [x] Production environment
 - [ ] Database migrations (migrate-mongo)

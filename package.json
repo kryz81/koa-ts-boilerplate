@@ -23,6 +23,7 @@
     "@typegoose/typegoose": "6.1.7",
     "class-transformer": "0.2.3",
     "class-validator": "0.11.0",
+    "event-dispatch": "0.4.1",
     "http-status-codes": "1.4.0",
     "inversify": "5.0.1",
     "koa": "2.11.0",

@@ -1,9 +1,12 @@
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
-import { injectable } from 'inversify';
-import { generateId } from '../utils/generateId';
-import { User, UserModel } from '../models/User';
+import { EventDispatcher } from 'event-dispatch';
+import { inject, injectable } from 'inversify';
+import SERVICE_ID from '../../config/service_id';
+import { EVENT_ID } from '../../subscribers/UserEvent';
+import { generateId } from '../../utils/generateId';
+import { User, UserModel } from '../../models/User';
 
 const createUserData = (data: User): User => ({
   name: data.name,
@@ -15,8 +18,11 @@ const createUserData = (data: User): User => ({
 export class UsersService {
   protected userModel: ModelType<User>;
 
-  constructor() {
+  protected eventDispatcher: EventDispatcher;
+
+  constructor(@inject(SERVICE_ID.EVENT_DISPATCHER) eventDispatcher: EventDispatcher) {
     this.userModel = UserModel;
+    this.eventDispatcher = eventDispatcher;
   }
 
   getUsers(): Promise<User[]> {
@@ -37,9 +43,11 @@ export class UsersService {
       ...createUserData(uncheckedUser),
     };
 
-    const { _id } = await this.userModel.create(userData);
+    const createdUser = await this.userModel.create(userData);
 
-    return _id;
+    this.eventDispatcher.dispatch(EVENT_ID.USER_CREATE, createdUser);
+
+    return createdUser._id;
   }
 
   async updateUser(userId: string, uncheckedUserData: unknown): Promise<boolean> {
@@ -49,6 +57,8 @@ export class UsersService {
 
     const userData = createUserData(uncheckedUser);
     const updated = await this.userModel.findByIdAndUpdate(userId, userData, { new: true, runValidators: true });
+
+    this.eventDispatcher.dispatch(EVENT_ID.USER_UPDATE, updated);
 
     return updated !== null;
   }

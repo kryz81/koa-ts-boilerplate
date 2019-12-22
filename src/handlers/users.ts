@@ -4,7 +4,7 @@ import { Context } from 'koa';
 import { ValidationError } from 'class-validator';
 import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import SERVICE_ID from '../config/service_id';
-import { UsersService } from '../services/users';
+import { UsersService } from '../services/repositories/users';
 import { User } from '../models/User';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
 

@@ -1,11 +1,12 @@
+import { EventDispatcher } from 'event-dispatch';
 import { UsersService } from '../users';
-import { UserModel } from '../../models/User';
+import { UserModel } from '../../../models/User';
 
 jest.mock('class-validator', () => ({
   validateOrReject: () => Promise.resolve(),
 }));
 
-jest.mock('../../models/User', () => ({
+jest.mock('../../../models/User', () => ({
   UserModel: {
     create: jest.fn((userData) => userData),
     findById: jest.fn(() => UserModel),
@@ -14,13 +15,13 @@ jest.mock('../../models/User', () => ({
   },
 }));
 
-jest.mock('../../utils/generateId', () => ({
+jest.mock('../../../utils/generateId', () => ({
   generateId: () => 1,
 }));
 
 let usersService: UsersService;
 beforeEach(() => {
-  usersService = new UsersService();
+  usersService = new UsersService(new EventDispatcher());
 });
 
 it('creates a user and returns user id', async () => {

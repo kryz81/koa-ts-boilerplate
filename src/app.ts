@@ -6,6 +6,7 @@ import SERVICE_ID from './config/service_id';
 import { init } from './loaders/init';
 import Routes from './config/routes';
 import swagger from './config/swagger';
+import './subscribers/register'; // all subscribers need to be imported before use
 
 @injectable()
 class App {
