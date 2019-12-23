@@ -76,7 +76,7 @@ class UsersHandler {
     }
   }
 
-  @req('put', '/users/:id')
+  @req('put', '/users/{id}')
   @usersTag
   @summary('Update user')
   @responses({
@@ -105,7 +105,7 @@ class UsersHandler {
     }
   }
 
-  @req('delete', '/users/:id')
+  @req('delete', '/users/{id}')
   @usersTag
   @summary('Delete user')
   @path(swaggerUserId)
