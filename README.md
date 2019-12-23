@@ -27,7 +27,7 @@
 - [x] Requests validation: class-validator
 - [ ] Background jobs: Agenda
 - [x] Event Manager
-- [ ] Logger (Winston?)
+- [x] Logging with winston
 - [x] Dependency Injection
 - [x] Commits linting: Commitlint + Husky
 - [x] Docker
