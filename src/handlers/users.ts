@@ -24,7 +24,7 @@ const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0
 @injectable()
 class UsersHandler implements interfaces.Controller {
   constructor(
-    @inject(SERVICE_ID.USERS_SERVICE) private usersService: UsersRepository,
+    @inject(SERVICE_ID.USERS_SERVICE) private usersRepositorz: UsersRepository,
     @inject(SERVICE_ID.EVENT_DISPATCHER) private eventDispatcher: EventDispatcher,
   ) {}
 
@@ -34,7 +34,7 @@ class UsersHandler implements interfaces.Controller {
   @summary('Get user list')
   @responses({ [OK]: { description: 'List of users' } })
   async getUserList({ response }: Context) {
-    response.body = await this.usersService.getUsers();
+    response.body = await this.usersRepositorz.getUsers();
   }
 
   @httpGet('/:id')
@@ -44,7 +44,7 @@ class UsersHandler implements interfaces.Controller {
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User found' }, [NOT_FOUND]: { description: 'User not found' } })
   async getUserDetails({ params, response }: Context) {
-    const user = await this.usersService.getUserById(params.id);
+    const user = await this.usersRepositorz.getUserById(params.id);
 
     if (!user) {
       this.eventDispatcher.dispatch(LOG_EVENT_ID.LOG, {
@@ -69,7 +69,7 @@ class UsersHandler implements interfaces.Controller {
   @body(UserForSwagger.swaggerDocument)
   async addUser({ request, response }: Context) {
     try {
-      const userId = await this.usersService.addUser(request.body);
+      const userId = await this.usersRepositorz.addUser(request.body);
       response.body = { userId };
     } catch (err) {
       if (isValidationError(err)) {
@@ -94,7 +94,7 @@ class UsersHandler implements interfaces.Controller {
   @path(swaggerUserId)
   async updateUser({ params, request, response }: Context) {
     try {
-      const userUpdated = await this.usersService.updateUser(params.id, request.body);
+      const userUpdated = await this.usersRepositorz.updateUser(params.id, request.body);
       if (!userUpdated) {
         response.status = NOT_FOUND;
         response.body = 'User not found';
@@ -118,7 +118,7 @@ class UsersHandler implements interfaces.Controller {
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User deleted' }, [NOT_FOUND]: { description: 'User not found' } })
   async deleteUser({ params, response }: Context) {
-    const deleted = await this.usersService.deleteUser(params.id);
+    const deleted = await this.usersRepositorz.deleteUser(params.id);
 
     if (!deleted) {
       response.status = NOT_FOUND;
