@@ -8,20 +8,20 @@ export class User {
   @prop({ required: false })
   public _id?: string;
 
-  @prop({ required: true })
-  @swaggerProperty({ type: 'string', required: true })
+  @prop({ required: true, example: '"kryz"' })
+  @swaggerProperty({ type: 'string', required: true, example: 'kryz' })
   @IsNotEmpty()
   @Length(3)
   public name!: string;
 
-  @prop({ required: true })
-  @swaggerProperty({ type: 'string', required: true })
+  @prop({ required: true, example: '"admin"' })
+  @swaggerProperty({ type: 'string', required: true, example: 'admin' })
   @IsNotEmpty()
   @IsEnum(Role)
   public role!: string;
 
-  @prop({ required: false })
-  @swaggerProperty({ type: 'string', required: false })
+  @prop({ required: false, example: '"k@kryz.dev"' })
+  @swaggerProperty({ type: 'string', required: false, example: 'k@kryz.dev' })
   @IsOptional()
   @IsEmail()
   public email?: string;
