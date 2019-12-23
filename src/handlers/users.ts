@@ -1,8 +1,18 @@
 import { EventDispatcher } from 'event-dispatch';
 import { inject, injectable } from 'inversify';
-import { controller, httpDelete, httpGet, httpPost, httpPut, interfaces } from 'inversify-koa-utils';
+import {
+  controller,
+  httpDelete,
+  httpGet,
+  httpPost,
+  httpPut,
+  interfaces,
+  requestBody,
+  requestParam,
+  response,
+} from 'inversify-koa-utils';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
-import { Context } from 'koa';
+import { Response } from 'koa';
 import { ValidationError } from 'class-validator';
 import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import SERVICE_ID from '../config/service_id';
@@ -24,7 +34,7 @@ const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0
 @injectable()
 class UsersHandler implements interfaces.Controller {
   constructor(
-    @inject(SERVICE_ID.USERS_SERVICE) private usersRepositorz: UsersRepository,
+    @inject(SERVICE_ID.USERS_SERVICE) private usersRepository: UsersRepository,
     @inject(SERVICE_ID.EVENT_DISPATCHER) private eventDispatcher: EventDispatcher,
   ) {}
 
@@ -33,8 +43,8 @@ class UsersHandler implements interfaces.Controller {
   @usersTag
   @summary('Get user list')
   @responses({ [OK]: { description: 'List of users' } })
-  async getUserList({ response }: Context) {
-    response.body = await this.usersRepositorz.getUsers();
+  async getUserList(@response() res: Response) {
+    res.body = await this.usersRepository.getUsers();
   }
 
   @httpGet('/:id')
@@ -43,22 +53,22 @@ class UsersHandler implements interfaces.Controller {
   @summary('Get user by id')
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User found' }, [NOT_FOUND]: { description: 'User not found' } })
-  async getUserDetails({ params, response }: Context) {
-    const user = await this.usersRepositorz.getUserById(params.id);
+  async getUserDetails(@requestParam('id') userId: string, @response() res: Response) {
+    const user = await this.usersRepository.getUserById(userId);
 
     if (!user) {
       this.eventDispatcher.dispatch(LOG_EVENT_ID.LOG, {
         level: 'warn',
         message: `Requested user not found`,
-        data: { userId: params.id },
+        data: { userId },
       });
 
-      response.status = NOT_FOUND;
-      response.body = 'User not found';
+      res.status = NOT_FOUND;
+      res.body = 'User not found';
       return;
     }
 
-    response.body = user;
+    res.body = user;
   }
 
   @httpPost('/')
@@ -67,14 +77,14 @@ class UsersHandler implements interfaces.Controller {
   @summary('Create a new user')
   @responses({ [OK]: { description: 'User created' }, [UNPROCESSABLE_ENTITY]: { description: 'Invalid user data' } })
   @body(UserForSwagger.swaggerDocument)
-  async addUser({ request, response }: Context) {
+  async addUser(@requestBody() userData: User, @response() res: Response) {
     try {
-      const userId = await this.usersRepositorz.addUser(request.body);
-      response.body = { userId };
+      const userId = await this.usersRepository.addUser(userData);
+      res.body = { userId };
     } catch (err) {
       if (isValidationError(err)) {
-        response.status = UNPROCESSABLE_ENTITY;
-        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
+        res.status = UNPROCESSABLE_ENTITY;
+        res.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
       throw err;
@@ -92,19 +102,19 @@ class UsersHandler implements interfaces.Controller {
   })
   @body(UserForSwagger.swaggerDocument)
   @path(swaggerUserId)
-  async updateUser({ params, request, response }: Context) {
+  async updateUser(@requestParam('id') userId: string, @requestBody() userData: User, @response() res: Response) {
     try {
-      const userUpdated = await this.usersRepositorz.updateUser(params.id, request.body);
+      const userUpdated = await this.usersRepository.updateUser(userId, userData);
       if (!userUpdated) {
-        response.status = NOT_FOUND;
-        response.body = 'User not found';
+        res.status = NOT_FOUND;
+        res.body = 'User not found';
         return;
       }
-      response.body = 'User updated';
+      res.body = 'User updated';
     } catch (err) {
       if (isValidationError(err)) {
-        response.status = UNPROCESSABLE_ENTITY;
-        response.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
+        res.status = UNPROCESSABLE_ENTITY;
+        res.body = { msg: 'Invalid user data', errors: extractValidationErrors(err) };
         return;
       }
       throw err;
@@ -117,16 +127,16 @@ class UsersHandler implements interfaces.Controller {
   @summary('Delete user')
   @path(swaggerUserId)
   @responses({ [OK]: { description: 'User deleted' }, [NOT_FOUND]: { description: 'User not found' } })
-  async deleteUser({ params, response }: Context) {
-    const deleted = await this.usersRepositorz.deleteUser(params.id);
+  async deleteUser(@requestParam('id') userId: string, @response() res: Response) {
+    const deleted = await this.usersRepository.deleteUser(userId);
 
     if (!deleted) {
-      response.status = NOT_FOUND;
-      response.body = 'User not found';
+      res.status = NOT_FOUND;
+      res.body = 'User not found';
       return;
     }
 
-    response.body = 'User deleted';
+    res.body = 'User deleted';
   }
 }
 
