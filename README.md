@@ -59,26 +59,27 @@
 
 ### Develop using docker machine
 
-| Command                                    | Description                                      |
-| ------------------------------------------ | ------------------------------------------------ |
-| docker-compose up --build                  | start in development mode (no debugger enabled)  |
-| TARGET=debugging docker-compose up --build | start in development mode with debugger attached |
+| Command                          | Description                                      |
+| -------------------------------- | ------------------------------------------------ |
+| docker-compose up                | start in development mode (no debugger enabled)  |
+| MODE=debugging docker-compose up | start in development mode with debugger attached |
 
 ### Commands
 
-| Command       | Description                                                |
-| ------------- | ---------------------------------------------------------- |
-| start:prod    | run production version (must be built with "build" command |
-| start:dev     | run in development mode                                    |
-| start:debug   | run in development mode with enabled debugger              |
-| build         | build production version                                   |
-| clean         | remove node_modules, coverage, built app and so on         |
-| test          | run tests in watch mode                                    |
-| test:once     | run all tests once                                         |
-| test:coverage | run all tests and export code coverage                     |
-| lint          | lint code                                                  |
-| format:check  | check code for formatting issues                           |
-| format:write  | check and automatically fix formatting issues              |
+| Command           | Description                                                |
+| ----------------- | ---------------------------------------------------------- |
+| start:prod        | run production version (must be built with "build" command |
+| start:dev         | run in development mode                                    |
+| start:development | the same as start:dev                                      |
+| start:debugging   | run in development mode with enabled debugger              |
+| build             | build production version                                   |
+| clean             | remove node_modules, coverage, built app and so on         |
+| test              | run tests in watch mode                                    |
+| test:once         | run all tests once                                         |
+| test:coverage     | run all tests and export code coverage                     |
+| lint              | lint code                                                  |
+| format:check      | check code for formatting issues                           |
+| format:write      | check and automatically fix formatting issues              |
 
 ### Build and run in production
 
@@ -92,5 +93,5 @@ Open: localhost:3000/api-docs/html or localhost:3000/api-docs/json
 
 - Edit configurations -> new configuration -> Attach to Node.js/Chrome
 - Host: localhost, port: 9229
-- Run docker machine with debugger: TARGET=debugging docker-compose up --build
+- Run docker machine with debugger: MODE=debugging docker-compose up
 - Run "debug"

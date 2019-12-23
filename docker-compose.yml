@@ -2,10 +2,7 @@ version: '2.4'
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: ${TARGET}
+    build: .
     volumes:
       - .:/home/node/app:delegated # "delegated" = the container’s view is authoritative (performance improvement)
       - /home/node/app/node_modules # hide node_modules from host
@@ -15,6 +12,9 @@ services:
     ports:
       - '3000:3000'
       - '9229:9229'
+    environment:
+      NODE_ENV: ${MODE:-development}
+    command: ['yarn', 'start:${MODE:-development}']
   db:
     image: mongo:bionic
     healthcheck:
