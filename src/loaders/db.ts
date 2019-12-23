@@ -7,6 +7,10 @@ const dbLoader = () => {
   mongoose.set('useFindAndModify', false);
   mongoose.set('useUnifiedTopology', true);
 
+  if (!DB_ENDPOINT) {
+    console.error('DB_ENDPOINT is undefined. Did you setup the .env file?');
+  }
+
   mongoose
     .connect(DB_ENDPOINT)
     // eslint-disable-next-line no-console
