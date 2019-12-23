@@ -4,7 +4,7 @@ import { validateOrReject } from 'class-validator';
 import { EventDispatcher } from 'event-dispatch';
 import { inject, injectable } from 'inversify';
 import SERVICE_ID from '../../config/service_id';
-import { EVENT_ID } from '../../subscribers/UserEvent';
+import { USER_EVENT_ID } from '../../subscribers/UserEvent';
 import { generateId } from '../../utils/generateId';
 import { User, UserModel } from '../../models/User';
 
@@ -15,7 +15,7 @@ const createUserData = (data: User): User => ({
 });
 
 @injectable()
-export class UsersService {
+export class UsersRepository {
   protected userModel: ModelType<User>;
 
   protected eventDispatcher: EventDispatcher;
@@ -45,7 +45,7 @@ export class UsersService {
 
     const createdUser = await this.userModel.create(userData);
 
-    this.eventDispatcher.dispatch(EVENT_ID.USER_CREATE, createdUser);
+    this.eventDispatcher.dispatch(USER_EVENT_ID.USER_CREATE, createdUser);
 
     return createdUser._id;
   }
@@ -58,7 +58,7 @@ export class UsersService {
     const userData = createUserData(uncheckedUser);
     const updated = await this.userModel.findByIdAndUpdate(userId, userData, { new: true, runValidators: true });
 
-    this.eventDispatcher.dispatch(EVENT_ID.USER_UPDATE, updated);
+    this.eventDispatcher.dispatch(USER_EVENT_ID.USER_UPDATE, updated);
 
     return updated !== null;
   }

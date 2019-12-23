@@ -6,7 +6,7 @@ import Server from '../server';
 import App from '../app';
 import Routes from './routes';
 import UsersHandler from '../handlers/users';
-import { UsersService } from '../services/repositories/users';
+import { UsersRepository } from '../services/repositories/users';
 
 const container = new Container();
 
@@ -17,7 +17,7 @@ container.bind<Server>(SERVICE_ID.SERVER).to(Server);
 container.bind<App>(SERVICE_ID.APP).to(App);
 container.bind<Routes>(SERVICE_ID.ROUTES).to(Routes);
 container.bind<UsersHandler>(SERVICE_ID.USERS_HANDLER).to(UsersHandler);
-container.bind<UsersService>(SERVICE_ID.USERS_SERVICE).to(UsersService);
+container.bind<UsersRepository>(SERVICE_ID.USERS_SERVICE).to(UsersRepository);
 container.bind<EventDispatcher>(SERVICE_ID.EVENT_DISPATCHER).to(EventDispatcher);
 
 export default container;

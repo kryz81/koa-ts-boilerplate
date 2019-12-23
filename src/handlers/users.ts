@@ -1,11 +1,13 @@
+import { EventDispatcher } from 'event-dispatch';
 import { inject, injectable } from 'inversify';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import { Context } from 'koa';
 import { ValidationError } from 'class-validator';
 import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import SERVICE_ID from '../config/service_id';
-import { UsersService } from '../services/repositories/users';
+import { UsersRepository } from '../services/repositories/users';
 import { User } from '../models/User';
+import { LOG_EVENT_ID } from '../subscribers/LogEvent';
 import { extractValidationErrors } from '../utils/extractValidationErrors';
 
 const usersTag = tags(['users']);
@@ -19,7 +21,10 @@ const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0
 
 @injectable()
 class UsersHandler {
-  constructor(@inject(SERVICE_ID.USERS_SERVICE) private usersService: UsersService) {}
+  constructor(
+    @inject(SERVICE_ID.USERS_SERVICE) private usersService: UsersRepository,
+    @inject(SERVICE_ID.EVENT_DISPATCHER) private eventDispatcher: EventDispatcher,
+  ) {}
 
   @req('get', '/users')
   @usersTag
@@ -38,6 +43,12 @@ class UsersHandler {
     const user = await this.usersService.getUserById(params.id);
 
     if (!user) {
+      this.eventDispatcher.dispatch(LOG_EVENT_ID.LOG, {
+        level: 'warn',
+        message: `Requested user not found`,
+        data: { userId: params.id },
+      });
+
       response.status = NOT_FOUND;
       response.body = 'User not found';
       return;
