@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { EventDispatcher } from 'event-dispatch';
 import { Container, decorate, injectable } from 'inversify';
+import HealthcheckHandler from '../handlers/healthcheck';
 import SERVICE_ID from './service_id';
 import Server from '../server';
 import App from '../app';
@@ -19,5 +20,6 @@ container.bind<Routes>(SERVICE_ID.ROUTES).to(Routes);
 container.bind<UsersHandler>(SERVICE_ID.USERS_HANDLER).to(UsersHandler);
 container.bind<UsersRepository>(SERVICE_ID.USERS_SERVICE).to(UsersRepository);
 container.bind<EventDispatcher>(SERVICE_ID.EVENT_DISPATCHER).to(EventDispatcher);
+container.bind<HealthcheckHandler>(SERVICE_ID.HEALTHCHECK_HANDLER).to(HealthcheckHandler);
 
 export default container;

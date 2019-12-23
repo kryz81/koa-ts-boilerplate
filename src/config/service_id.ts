@@ -5,6 +5,7 @@ const SERVICE_ID = {
   USER_MODEL: Symbol.for('UserModel'),
   USERS_SERVICE: Symbol.for('UsersService'),
   USERS_HANDLER: Symbol.for('UsersHandler'),
+  HEALTHCHECK_HANDLER: Symbol.for('HealthcheckHandler'),
   EVENT_DISPATCHER: Symbol.for('EventDispatcher'),
 };
 

@@ -6,6 +6,8 @@ EXPOSE 3000
 # good practice: use tini for better process management
 RUN apt update && apt install -y tini
 
+HEALTHCHECK --interval=10s --timeout=3s CMD curl -f http://localhost:3000/healthcheck/ || exit 1
+
 # good practice: don't run as a root
 USER node
 
