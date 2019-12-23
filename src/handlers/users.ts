@@ -1,5 +1,6 @@
 import { EventDispatcher } from 'event-dispatch';
 import { inject, injectable } from 'inversify';
+import { controller, httpDelete, httpGet, httpPost, httpPut, interfaces } from 'inversify-koa-utils';
 import { body, path, request as req, responses, summary, tags } from 'koa-swagger-decorator';
 import { Context } from 'koa';
 import { ValidationError } from 'class-validator';
@@ -19,13 +20,15 @@ const swaggerUserId = { id: { type: 'string', required: true, description: 'user
 
 const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0] instanceof ValidationError;
 
+@controller('/users')
 @injectable()
-class UsersHandler {
+class UsersHandler implements interfaces.Controller {
   constructor(
     @inject(SERVICE_ID.USERS_SERVICE) private usersService: UsersRepository,
     @inject(SERVICE_ID.EVENT_DISPATCHER) private eventDispatcher: EventDispatcher,
   ) {}
 
+  @httpGet('/')
   @req('get', '/users')
   @usersTag
   @summary('Get user list')
@@ -34,6 +37,7 @@ class UsersHandler {
     response.body = await this.usersService.getUsers();
   }
 
+  @httpGet('/:id')
   @req('get', '/users/{id}')
   @usersTag
   @summary('Get user by id')
@@ -57,6 +61,7 @@ class UsersHandler {
     response.body = user;
   }
 
+  @httpPost('/')
   @req('post', '/users')
   @usersTag
   @summary('Create a new user')
@@ -76,6 +81,7 @@ class UsersHandler {
     }
   }
 
+  @httpPut('/:id')
   @req('put', '/users/{id}')
   @usersTag
   @summary('Update user')
@@ -105,6 +111,7 @@ class UsersHandler {
     }
   }
 
+  @httpDelete('/:id')
   @req('delete', '/users/{id}')
   @usersTag
   @summary('Delete user')
