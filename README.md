@@ -15,7 +15,6 @@
 - [x] Testing
   - [x] Unit tests: Jest
   - [x] Functional tests: Supertest, MongoDB In-Memory
-  - [ ] Mutation tests: Stryker
 - [x] Linting
   - [x] Eslint with Typescript
 - [x] Code Formatting
@@ -33,7 +32,7 @@
 - [x] Docker
   - [x] Development environment
   - [x] Production environment
-- [ ] Database migrations (migrate-mongo)
+- [x] Database migrations (migrate-mongo)
 - [x] Continuous Integration
   - [x] Travis CI
   - [x] Coveralls
@@ -56,6 +55,7 @@
 - yarn (or: npm i)
 - run in development mode: yarn start:dev (or: npm run start:dev)
 - run tests in development mode: yarn test (or: npm test)
+- seed database with example data: yarn migrate:dev (or: npm run migrate:dev)
 
 ### Develop using docker machine
 
