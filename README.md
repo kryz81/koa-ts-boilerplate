@@ -24,7 +24,7 @@
   - [x] Mongoose
   - [x] Typegoose
 - [x] Requests validation: class-validator
-- [ ] Background jobs: Agenda
+- [x] Background jobs: Agenda
 - [x] Event Manager
 - [x] Logging with winston
 - [x] Dependency Injection

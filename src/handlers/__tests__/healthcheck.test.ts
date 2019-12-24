@@ -8,7 +8,7 @@ import container from '../../config/dic';
 
 let app: Koa;
 beforeAll(async () => {
-  app = container.get<App>(SERVICE_ID.APP).init();
+  app = await container.get<App>(SERVICE_ID.APP).init();
 });
 
 it('returns 200 on successful ping', async () => {

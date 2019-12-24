@@ -12,7 +12,7 @@ let conn: Connection;
 let app: Koa;
 beforeAll(async () => {
   conn = await createConn();
-  app = container.get<App>(SERVICE_ID.APP).init();
+  app = await container.get<App>(SERVICE_ID.APP).init();
 });
 
 beforeEach(async () => {

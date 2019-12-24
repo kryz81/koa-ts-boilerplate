@@ -23,6 +23,7 @@
   "dependencies": {
     "@koa/cors": "3.0.0",
     "@typegoose/typegoose": "6.1.7",
+    "agenda": "2.3.0",
     "class-transformer": "0.2.3",
     "class-validator": "0.11.0",
     "db-migrate": "0.11.6",
@@ -30,6 +31,7 @@
     "event-dispatch": "0.4.1",
     "http-status-codes": "1.4.0",
     "inversify": "5.0.1",
+    "inversify-agenda": "1.1.0",
     "inversify-koa-utils": "1.0.0",
     "koa": "2.11.0",
     "koa-bodyparser": "4.2.1",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
+    "@types/agenda": "2.0.6",
     "@types/jest": "24.0.23",
     "@types/koa": "2.11.0",
     "@types/koa-bodyparser": "4.3.0",

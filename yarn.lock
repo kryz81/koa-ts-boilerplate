@@ -463,6 +463,14 @@
   dependencies:
     "@types/node" "*"
 
+"@types/agenda@2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/agenda/-/agenda-2.0.6.tgz#56e81fcd6dc633e5599b6dac527274d51b3a717a"
+  integrity sha512-Dg+vuMsvF5hldxtdhSpH63uSdjJfkOkg4fVSyndveX6sMfqAe4hbq3rN4rPhFHirxHZGTj6quoQrs9DUln1lyw==
+  dependencies:
+    "@types/mongodb" "*"
+    "@types/node" "*"
+
 "@types/babel__core@^7.1.0":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.3.tgz#e441ea7df63cd080dfcd02ab199e6d16a735fc30"
@@ -873,6 +881,18 @@ acorn@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
   integrity sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
+
+agenda@2.3.0, agenda@^2.0.2:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/agenda/-/agenda-2.3.0.tgz#192c69a01a4cf1c2ccd504c262096169aacc47ae"
+  integrity sha512-0RnozNC6Dy1lvaY3/BQt0IKlQrU5vSjBZ9fSG+5I31bNvU7VrzrZFNNuoBmsd99z5GwXzOIWVUkbddvj/VlfBg==
+  dependencies:
+    cron "~1.7.2"
+    date.js "~0.3.3"
+    debug "~4.1.1"
+    human-interval "~1.0.0"
+    moment-timezone "~0.5.27"
+    mongodb "~3.4.0"
 
 agent-base@^4.3.0:
   version "4.3.0"
@@ -1687,6 +1707,13 @@ coveralls@3.0.9:
     minimist "^1.2.0"
     request "^2.88.0"
 
+cron@~1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/cron/-/cron-1.7.2.tgz#2ea1f35c138a07edac2ac5af5084ed6fee5723db"
+  integrity sha512-+SaJ2OfeRvfQqwXQ2kgr0Y5pzBR/lijf5OpnnaruwWnmI799JfWr2jN2ItOV9s3A/+TFOt6mxvKzQq5F0Jp6VQ==
+  dependencies:
+    moment-timezone "^0.5.x"
+
 cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -1759,6 +1786,13 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+date.js@~0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/date.js/-/date.js-0.3.3.tgz#ef1e92332f507a638795dbb985e951882e50bbda"
+  integrity sha512-HgigOS3h3k6HnW011nAb43c5xx5rBXk8P2v/WIT9Zv4koIaVXiH2BURguI78VVp+5Qc076T7OR378JViCnZtBw==
+  dependencies:
+    debug "~3.1.0"
+
 db-migrate-base@^1.3.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/db-migrate-base/-/db-migrate-base-1.6.3.tgz#5fa63e2745fd353ffd90be6754a0d79b41167cd8"
@@ -1823,7 +1857,7 @@ debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@~4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
@@ -3060,6 +3094,11 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.3.0"
     debug "^3.1.0"
 
+human-interval@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/human-interval/-/human-interval-1.0.0.tgz#7ba00a15f3d94ab6a4c16f76060e4aa07c713019"
+  integrity sha512-SWPw3rD6/ocA0JnGePoXp5Zf5eILzsoL5vdWdLwtTuyrElyCpfQb0whIcxMdK/gAKNl2rFDGkPAbwI2KGZCvNA==
+
 husky@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/husky/-/husky-3.1.0.tgz#5faad520ab860582ed94f0c1a77f0f04c90b57c0"
@@ -3196,6 +3235,13 @@ invariant@^2.2.4:
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
   dependencies:
     loose-envify "^1.0.0"
+
+inversify-agenda@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/inversify-agenda/-/inversify-agenda-1.1.0.tgz#bd439619197dcca8907276eb2b610d0ff272a39a"
+  integrity sha512-6xEXPYc3jeNi14Cd1VxGZmZn/zHxd+gwoTDGHzLxjw0VgZv0pZhlRv6NlGZsRnXLgZJLP/HJDOQayH2cxixSCA==
+  dependencies:
+    agenda "^2.0.2"
 
 inversify-koa-utils@1.0.0:
   version "1.0.0"
@@ -4483,6 +4529,18 @@ mkdirp@0.x, mkdirp@0.x.x, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+moment-timezone@^0.5.x, moment-timezone@~0.5.27:
+  version "0.5.27"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.27.tgz#73adec8139b6fe30452e78f210f27b1f346b8877"
+  integrity sha512-EIKQs7h5sAsjhPCqN6ggx6cEbs94GK050254TIJySD1bzoM5JTYDwAU1IoVOeTOL6Gm27kYJ51/uuvq1kIlrbw==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0":
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 mongodb-core@2.1.20:
   version "2.1.20"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.20.tgz#fece8dd76b59ee7d7f2d313b65322c160492d8f1"
@@ -4564,6 +4622,17 @@ mongodb@^2.2.34:
     es6-promise "3.2.1"
     mongodb-core "2.1.20"
     readable-stream "2.2.7"
+
+mongodb@~3.4.0:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.4.1.tgz#0d15e57e0ea0fc85b7a4fb9291b374c2e71652dc"
+  integrity sha512-juqt5/Z42J4DcE7tG7UdVaTKmUC6zinF4yioPfpeOSNBieWSK6qCY+0tfGQcHLKrauWPDdMZVROHJOa8q2pWsA==
+  dependencies:
+    bson "^1.1.1"
+    require_optional "^1.0.1"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"

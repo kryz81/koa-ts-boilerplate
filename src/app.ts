@@ -16,9 +16,9 @@ class App {
     this.app = new Koa();
   }
 
-  init(): Koa {
+  async init(): Promise<Koa> {
     // init services, middleware
-    init(this.app);
+    await init(this.app);
 
     const builtApp = new InversifyKoaServer(container, undefined, undefined, this.app).build();
 
