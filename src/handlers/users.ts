@@ -1,5 +1,5 @@
 import { EventDispatcher } from 'event-dispatch';
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import {
   controller,
   httpDelete,
@@ -32,10 +32,7 @@ const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0
 @controller('/users')
 @injectable()
 class UsersHandler implements interfaces.Controller {
-  constructor(
-    @inject(UsersRepository) private usersRepository: UsersRepository,
-    @inject(EventDispatcher) private eventDispatcher: EventDispatcher,
-  ) {}
+  constructor(private usersRepository: UsersRepository, private eventDispatcher: EventDispatcher) {}
 
   @httpGet('/')
   @req('get', '/users')
