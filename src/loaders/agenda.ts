@@ -9,7 +9,7 @@ const agendaLoader = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const builtAgenda = new InversifyAgenda(container, { agenda: agenda as any }).build();
 
-  builtAgenda.start();
+  return builtAgenda.start();
 };
 
 export default agendaLoader;
