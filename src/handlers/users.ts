@@ -15,7 +15,6 @@ import { body, path, request as req, responses, summary, tags } from 'koa-swagge
 import { Response } from 'koa';
 import { ValidationError } from 'class-validator';
 import { OK, NOT_FOUND, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import SERVICE_ID from '../config/service_id';
 import { UsersRepository } from '../services/repositories/users';
 import { User } from '../models/User';
 import { LOG_EVENT_ID } from '../subscribers/LogEvent';
@@ -34,8 +33,8 @@ const isValidationError = (errors: unknown) => Array.isArray(errors) && errors[0
 @injectable()
 class UsersHandler implements interfaces.Controller {
   constructor(
-    @inject(SERVICE_ID.USERS_SERVICE) private usersRepository: UsersRepository,
-    @inject(SERVICE_ID.EVENT_DISPATCHER) private eventDispatcher: EventDispatcher,
+    @inject(UsersRepository) private usersRepository: UsersRepository,
+    @inject(EventDispatcher) private eventDispatcher: EventDispatcher,
   ) {}
 
   @httpGet('/')

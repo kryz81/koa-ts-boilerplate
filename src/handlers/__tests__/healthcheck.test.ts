@@ -2,13 +2,12 @@
 
 import Koa from 'koa';
 import request from 'supertest';
-import App from '../../app';
-import SERVICE_ID from '../../config/service_id';
 import container from '../../config/dic';
+import App from '../../app';
 
 let app: Koa;
 beforeAll(async () => {
-  app = await container.get<App>(SERVICE_ID.APP).init();
+  app = await container.get<App>(App).init();
 });
 
 it('returns 200 on successful ping', async () => {

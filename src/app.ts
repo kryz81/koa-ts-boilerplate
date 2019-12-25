@@ -6,7 +6,6 @@ import Koa from 'koa';
 import container from './config/dic';
 import { init } from './loaders/init';
 import swagger from './config/swagger';
-import './subscribers/register'; // all subscribers need to be imported before use
 
 @injectable()
 class App {

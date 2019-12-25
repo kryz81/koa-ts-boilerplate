@@ -2,8 +2,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types';
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
 import { EventDispatcher } from 'event-dispatch';
-import { inject, injectable } from 'inversify';
-import SERVICE_ID from '../../config/service_id';
+import { injectable } from 'inversify';
 import { USER_EVENT_ID } from '../../subscribers/UserEvent';
 import { generateId } from '../../utils/generateId';
 import { User, UserModel } from '../../models/User';
@@ -20,7 +19,7 @@ export class UsersRepository {
 
   protected eventDispatcher: EventDispatcher;
 
-  constructor(@inject(SERVICE_ID.EVENT_DISPATCHER) eventDispatcher: EventDispatcher) {
+  constructor(eventDispatcher: EventDispatcher) {
     this.userModel = UserModel;
     this.eventDispatcher = eventDispatcher;
   }
