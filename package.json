@@ -18,7 +18,9 @@
     "test:coverage": "jest --detectOpenHandles --forceExit --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "eslint \"src/**/*.{ts,js}\"",
     "format:write": "prettier --write \"src/**/*.{ts,js}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,js}\""
+    "format:check": "prettier --check \"src/**/*.{ts,js}\"",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "@koa/cors": "3.0.0",
@@ -42,7 +44,8 @@
     "mongoose-to-swagger": "1.0.0",
     "reflect-metadata": "0.1.13",
     "uuid": "3.3.3",
-    "winston": "3.2.1"
+    "winston": "3.2.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
@@ -75,5 +78,6 @@
     "ts-jest": "24.2.0",
     "tsc-watch": "4.0.0",
     "typescript": "3.7.3"
-  }
+  },
+  "snyk": true
 }
