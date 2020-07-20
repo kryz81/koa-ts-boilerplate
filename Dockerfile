@@ -14,7 +14,7 @@ USER node
 # good practice: install node_modules in parent directory
 WORKDIR /home/node
 
-COPY package.json yarn.lock ./
+COPY --chown=node:node package.json yarn.lock ./
 
 RUN yarn
 
