@@ -9,7 +9,7 @@ pipeline {
     }
     stage("deploy") {
       steps {
-        sh 'docker run -d --rm -p 3000:3000 --name koa kryz81/koa-ts-boilerplate:1.02'
+        sh 'docker run -d --rm -p 3000:3000 --name koa kryz81/koa-ts-boilerplate:1.0.2'
       }
     }
   }
