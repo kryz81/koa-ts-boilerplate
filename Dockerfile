@@ -1,31 +1,32 @@
-# good practice: use LTS version of Node.js and minimal OS
-FROM node:12-buster as base
+# example build:
+# docker build -t myapp -f Dockerfile.prod . --build-arg DB_ENDPOINT=mongodb://<ip address>:27017/myapp
 
-EXPOSE 3000 9229
+FROM node:12-buster
 
-# good practice: use tini for better process management
 RUN apt update && apt install -y tini
 
-HEALTHCHECK --interval=10s --timeout=3s CMD curl -f http://localhost:3000/healthcheck/ || exit 1
+ARG DB_ENDPOINT
+ARG APP_PORT=3000
 
-# good practice: don't run as a root
+EXPOSE $APP_PORT
+
+ENV DB_ENDPOINT=$DB_ENDPOINT
+ENV APP_PORT=$APP_PORT
+
 USER node
 
-# good practice: install node_modules in parent directory
 WORKDIR /home/node
 
-COPY --chown=node:node package.json yarn.lock ./
+COPY package*.json ./
 
-RUN yarn
+RUN npm i
 
-# good practice: copy source code to subdirectory
-WORKDIR /home/node/app
+ENV NODE_ENV=production
 
-# access .bin tools from parent node_modules
-ENV PATH=/home/node/node_modules/.bin:$PATH
-
-# good practice: don't use ADD (more complex, not needed for local copy)
 COPY --chown=node:node . .
 
-# good practice: tini takes care of node process
+RUN npm run build
+
 ENTRYPOINT ["tini", "--"]
+
+CMD ["node", "dist/index.js"]
