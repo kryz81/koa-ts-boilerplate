@@ -38,7 +38,7 @@
     "koa-helmet": "5.2.0",
     "koa-router": "7.4.0",
     "koa-swagger-decorator": "1.6.0",
-    "mongoose": "5.11.7",
+    "mongoose": "5.12.2",
     "mongoose-to-swagger": "1.0.0",
     "reflect-metadata": "0.1.13",
     "uuid": "3.3.3",
