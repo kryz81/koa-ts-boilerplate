@@ -37,7 +37,7 @@
     "koa-bodyparser": "4.2.1",
     "koa-helmet": "5.2.0",
     "koa-router": "7.4.0",
-    "koa-swagger-decorator": "1.6.0",
+    "koa-swagger-decorator": "1.8.1",
     "mongoose": "6.0.4",
     "mongoose-to-swagger": "1.0.0",
     "reflect-metadata": "0.1.13",
