@@ -25,7 +25,7 @@
     "@typegoose/typegoose": "6.1.7",
     "agenda": "2.3.0",
     "class-transformer": "0.3.1",
-    "class-validator": "0.13.0",
+    "class-validator": "0.14.0",
     "db-migrate": "0.11.6",
     "db-migrate-mongodb": "1.5.0",
     "event-dispatch": "0.4.1",
