@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@koa/cors": "3.0.0",
-    "@typegoose/typegoose": "6.1.7",
+    "@typegoose/typegoose": "6.2.0",
     "agenda": "2.3.0",
     "class-transformer": "0.3.1",
     "class-validator": "0.14.0",
