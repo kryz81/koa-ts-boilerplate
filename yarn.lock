@@ -464,15 +464,15 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@typegoose/typegoose@6.1.7":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@typegoose/typegoose/-/typegoose-6.1.7.tgz#663e88cd2ca3d5a95029515f934969e1e9be600b"
-  integrity sha512-2gGjL12AmrhhNyWOQzibne/MYZr5r/cw62PeLZaN7MLxW+buNn1XmMiz9dR7U6gMf0l0JHcFxOSfbJFvhComJQ==
+"@typegoose/typegoose@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@typegoose/typegoose/-/typegoose-6.2.0.tgz#7e6efe795191a2647991155af6558172952d513e"
+  integrity sha512-d5BZt3wVDnUOsC5IrF+zs9UN9VbuYOod8eWNZIXqS8uNir2VD7TLrx1QrBrIxGcy37p8uOnGttGjxdNVXoKS1Q==
   dependencies:
     lodash "^4.17.15"
     loglevel "^1.6.6"
     reflect-metadata "^0.1.13"
-    semver "^6.3.0"
+    semver "^7.1.1"
     tslib "^1.10.0"
 
 "@types/accepts@*":
@@ -4362,6 +4362,13 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
+lru-cache@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
+  integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
+  dependencies:
+    yallist "^4.0.0"
+
 make-dir@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
@@ -5887,6 +5894,13 @@ semver@^6.0.0, semver@^6.1.2, semver@^6.2.0, semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
+semver@^7.1.1:
+  version "7.5.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.2.tgz#5b851e66d1be07c1cdaf37dfc856f543325a2beb"
+  integrity sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==
+  dependencies:
+    lru-cache "^6.0.0"
+
 set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
@@ -6934,6 +6948,11 @@ yallist@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
+
+yallist@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
+  integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 yargs-parser@10.x, yargs-parser@^10.0.0:
   version "10.1.0"
