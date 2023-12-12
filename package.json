@@ -21,7 +21,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,js}\""
   },
   "dependencies": {
-    "@koa/cors": "3.0.0",
+    "@koa/cors": "5.0.0",
     "@typegoose/typegoose": "6.1.7",
     "agenda": "2.3.0",
     "class-transformer": "0.3.1",
